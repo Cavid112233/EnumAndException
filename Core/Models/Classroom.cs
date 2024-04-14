@@ -9,10 +9,10 @@ namespace Core.Models
 {
     public class Classroom
     {
-        public int Id { get; }
-        public string Name { get; }
-        public List<Student> Students { get; } = new List<Student>();
-        public ClassroomType Type { get; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<Student> Students = new List<Student>();
+        public ClassroomType Type { get; set; }
 
         public Classroom(int id, string name, ClassroomType type)
         {
@@ -35,7 +35,9 @@ namespace Core.Models
         {
             Student student = FindStudentById(id);
             if (student != null)
+            {
                 Students.Remove(student);
+            }
         }
     }
 }

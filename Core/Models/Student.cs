@@ -8,9 +8,9 @@ namespace Core.Models
 {
     public class Student
     {
-        public int Id { get; }
-        public string Name { get; }
-        public string Surname { get; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
 
         public Student(int id, string name, string surname)
         {
