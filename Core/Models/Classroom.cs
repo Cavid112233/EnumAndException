@@ -9,35 +9,50 @@ namespace Core.Models
 {
     public class Classroom
     {
+        private static int _id;
         public int Id { get; set; }
-        public string Name { get; set; }
-        public List<Student> Students = new List<Student>();
-        public ClassroomType Type { get; set; }
+        public string ClassName { get; set; }
+        public ClassroomType ClassroomType { get; set; }
 
-        public Classroom(int id, string name, ClassroomType type)
-        {
-            Id = id;
-            Name = name;
-            Type = type;
-        }
+        Classroom[] Classrooms = new Classroom[] { };
 
-        public void AddStudent(Student student)
+        public Classroom(string className, ClassroomType classType)
         {
-            Students.Add(student);
-        }
+            _id++;
+            Id = _id;
+            ClassName = className;
+            ClassroomType = classType;
 
-        public Student FindStudentById(int id)
-        {
-            return Students.Find(student => student.Id == id);
-        }
-
-        public void DeleteStudent(int id)
-        {
-            Student student = FindStudentById(id);
-            if (student != null)
+            if (classType == ClassroomType.Backend)
             {
-                Students.Remove(student);
+                Array.Resize(ref Classrooms, 20);
             }
+            else if (classType == ClassroomType.FrontEnd)
+            {
+                Array.Resize(ref Classrooms, 15);
+            }
+
+
+        }
+
+        public Classroom()
+        {
+        }
+
+        public void ClassroomAdd(Classroom classroom, ClassroomType classType)
+        {
+            Array.Resize(ref Classrooms, Classrooms.Length + 1);
+            Classrooms[Classrooms.Length - 1] = classroom;
+
+        }
+        public override string ToString()
+        {
+            return $" Id:{Id}\n Name:{ClassName}\n ClassType:{ClassroomType}";
+
+        }
+        public Classroom[] ShowAllClass()
+        {
+            return Classrooms;
         }
     }
 }

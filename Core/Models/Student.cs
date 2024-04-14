@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Models.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,14 +10,85 @@ namespace Core.Models
     public class Student
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
 
-        public Student(int id, string name, string surname)
+        private static int _id;
+
+        public string Name { get; set; }
+
+        public string SurName { get; set; }
+
+        public string ClassName { get; set; }
+
+        public Student(string name, string surname, string className)
         {
-            Id = id;
+            _id++;
+            Id = _id;
             Name = name;
-            Surname = surname;
+            SurName = surname;
+            ClassName = className;
+        }
+
+        public Student()
+        {
+        }
+
+        Student[] Students = new Student[] { };
+
+        public override string ToString()
+        {
+            return $" Id:{Id}\n Name:{Name}\n Surname:{SurName}\n ClassName:{ClassName}";
+        }
+
+        public void AddStudent(Student student)
+        {
+            Array.Resize(ref Students, Students.Length + 1);
+            Students[Students.Length - 1] = student;
+
+        }
+
+
+        public Student[] FindClassName(string className)
+        {
+            Student[] findClassName = new Student[] {};
+
+            for (int i = 0; i < Students.Length; i++)
+            {
+                if (Students[i].ClassName == className)
+                {
+                    Array.Resize(ref findClassName, findClassName.Length + 1);
+                    findClassName[findClassName.Length - 1] = Students[i];
+                }
+            }
+            return findClassName;
+        }
+
+        public Student[] Delete(int id)
+        {
+            Student[] deleteStudent = new Student[] {};
+            for (int i = 0; i < Students.Length; i++)
+            {
+
+                if (Students[i].Id != id)
+                {
+
+                    Array.Resize(ref deleteStudent, deleteStudent.Length + 1);
+                    deleteStudent[deleteStudent.Length - 1] = Students[i];
+
+
+                }
+            }
+            if (Students.Length < id - 1)
+            {
+                throw new NotFoundStudentException("Telebe tapilmadi!");
+            }
+
+            Students = deleteStudent;
+            return deleteStudent;
+
+        }
+        public Student[] ShowAllStudents()
+        {
+            return Students;
         }
     }
 }

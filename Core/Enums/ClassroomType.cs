@@ -8,7 +8,7 @@ namespace Core.Enums
 {
     public enum ClassroomType
     {
-        Backend = 0,
-        FrontEnd = 1
+        Backend,
+        FrontEnd 
     }
 }
