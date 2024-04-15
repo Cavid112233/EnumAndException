@@ -132,7 +132,9 @@ namespace EnumAndException
                     int select;
                     do
                     {
-                        Console.WriteLine("1.Butun sinifleri ekrana cixart.\n2.Butun telebeleri ekrana cixart.\n0.Esas menyuya qayit.");
+                        Console.WriteLine("1.Butun sinifleri ekrana cixart.+" +
+                            "\n2.Butun telebeleri ekrana cixart.+" +
+                            "\n0.Esas menyuya qayit.");
                         select = Convert.ToInt32(Console.ReadLine());
 
                         if (select == 1)
